@@ -1,0 +1,16 @@
+{
+  "name": "divineema-calculator",
+  "version": "1.0.0",
+  "description": "Calculator built on phone by DivineEma",
+  "main": "main.js",
+  "author": "DivineEma <divineema388@gmail.com>",
+  "scripts": { "start": "electron .", "dist": "electron-builder --publish never" },
+  "devDependencies": { "electron": "^31.0.0", "electron-builder": "^24.13.3" },
+  "build": {
+    "appId": "com.divineema.calculator",
+    "productName": "DivineEma Calculator",
+    "win": { "target": "nsis" },
+    "mac": { "target": "dmg", "identity": null },
+    "linux": { "target": "AppImage" }
+  }
+}

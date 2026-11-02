@@ -1,0 +1,28 @@
+name: Build Desktop App
+on:
+  push: { branches: [main] }
+  workflow_dispatch:
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, artifact: windows }
+          - { os: macos-latest, artifact: mac }
+          - { os: ubuntu-latest, artifact: linux }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm install
+      - run: npx electron-builder --publish never
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installer-${{ matrix.artifact }}
+          path: |
+            dist/*.exe
+            dist/*.dmg
+            dist/*.AppImage
+          if-no-files-found: ignore
